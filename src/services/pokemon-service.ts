@@ -9,7 +9,7 @@ export default class PokemonService {
 
   static getPokemons(): Promise<Pokemon[]> {
     if(this.isDev) {
-      return fetch('http://localhost:3001/pokemons')
+      return fetch('http://localhost:3001/api/pokemons')
       .then(response => response.json())
       .catch(error => this.handleError(error));
     }
@@ -21,7 +21,7 @@ export default class PokemonService {
 
   static getPokemon(id: number): Promise<Pokemon|null> {
     if(this.isDev) {
-      return fetch(`http://localhost:3001/pokemons/${id}`)
+      return fetch(`http://localhost:3001/api/pokemons/${id}`)
       .then(response => response.json())
       .then(data => this.isEmpty(data) ? null : data)
       .catch(error => this.handleError(error));
@@ -34,7 +34,7 @@ export default class PokemonService {
 
   static updatePokemon(pokemon: Pokemon): Promise<Pokemon> {
     if(this.isDev) {
-      return fetch(`http://localhost:3001/pokemons/${pokemon.id}`, {
+      return fetch(`http://localhost:3001/api/pokemons/${pokemon.id}`, {
         method: 'PUT',
         body: JSON.stringify(pokemon),
         headers: { 'Content-Type': 'application/json'}
@@ -53,7 +53,7 @@ export default class PokemonService {
 
   static deletePokemon(pokemon: Pokemon): Promise<{}> {
     if(this.isDev) {
-      return fetch(`http://localhost:3001/pokemons/${pokemon.id}`, {
+      return fetch(`http://localhost:3001/api/pokemons/${pokemon.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json'}
       })
@@ -72,7 +72,7 @@ export default class PokemonService {
     delete pokemon.created;
 
     if(this.isDev) {
-      return fetch(`http://localhost:3001/pokemons`, {
+      return fetch(`http://localhost:3001/api/pokemons`, {
         method: 'POST',
         body: JSON.stringify(pokemon),
         headers: { 'Content-Type': 'application/json'}
@@ -89,7 +89,7 @@ export default class PokemonService {
 
   static searchPokemon(term: string): Promise<Pokemon[]> {
     if(this.isDev) {
-      return fetch(`http://localhost:3001/pokemons?q=${term}`)
+      return fetch(`http://localhost:3001/api/pokemons?q=${term}`)
       .then(response => response.json())
       .catch(error => this.handleError(error));
     }
